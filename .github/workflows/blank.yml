@@ -1,0 +1,32 @@
+name: VPS
+
+on: [workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install Desktop
+        run: |
+          sudo apt update
+          sudo apt install xfce4 xfce4-goodies -y
+          sudo apt install xrdp -y
+
+      - name: Start RDP
+        run: |
+          sudo service xrdp start
+          echo "runner:123456" | sudo chpasswd
+
+      - name: Install Ngrok
+        run: |
+          wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-amd64.zip
+          unzip ngrok-stable-linux-amd64.zip
+
+      - name: Add Token
+        run: |
+          ./ngrok authtoken 387DB9Z6zKWBEOjXayzHz9nR6jk_3Tt95gcz6uAKLvDVLhHnT
+
+      - name: Start Tunnel
+        run: |
+          ./ngrok tcp 3389
