@@ -21,11 +21,21 @@ jobs:
         run: |
           wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-stable-linux-amd64.zip
           unzip ngrok-stable-linux-amd64.zip
+          chmod +x ngrok
 
       - name: Add Token
         run: |
-          chmod +x ngrok
           ./ngrok authtoken 3CkEvJCYLYqX0A0OjarbXl9nhKD_2GqAQDSxakWsPSEeYuDkW
+
       - name: Start Tunnel
         run: |
-          ./ngrok tcp 3389
+          ./ngrok tcp 3389 > ngrok.log &
+          sleep 10
+
+      - name: Show Address
+        run: |
+          cat ngrok.log
+
+      - name: Keep Alive
+        run: |
+          sleep 21600
