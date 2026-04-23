@@ -1,9 +1,32 @@
-- name: Install Playit
-  run: |
-    wget https://github.com/playit-cloud/playit-agent/releases/latest/download/playit-linux-amd64
-    chmod +x playit-linux-amd64
+name: VPS
 
-- name: Start Playit
-  run: |
-    ./playit-linux-amd64 --code ANK-123 &
-    sleep 10
+on: [workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Update
+        run: sudo apt update -y
+
+      - name: Install Desktop + RDP
+        run: |
+          sudo apt install xfce4 xfce4-goodies -y
+          sudo apt install xrdp -y
+          sudo service xrdp start
+          echo "runner:123456" | sudo chpasswd
+
+      - name: Install Playit
+        run: |
+          wget https://github.com/playit-cloud/playit-agent/releases/latest/download/playit-linux-amd64
+          chmod +x playit-linux-amd64
+
+      - name: Start Playit
+        run: |
+          ./playit-linux-amd64 --code ANK-123 &
+          sleep 10
+
+      - name: Keep Alive
+        run: |
+          sleep 21600
