@@ -7,14 +7,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Install Desktop
+      - name: Update
+        run: sudo apt update -y
+
+      - name: Install Desktop + RDP
         run: |
-          sudo apt update
           sudo apt install xfce4 xfce4-goodies -y
           sudo apt install xrdp -y
-
-      - name: Start RDP
-        run: |
           sudo service xrdp start
           echo "runner:123456" | sudo chpasswd
 
@@ -25,8 +24,8 @@ jobs:
 
       - name: Add Token
         run: |
-          ./ngrok authtoken 387DB9Z6zKWBEOjXayzHz9nR6jk_3Tt95gcz6uAKLvDVLhHnT
-
+          chmod +x ngrok
+          ./ngrok authtoken 3CkEvJCYLYqX0A0OjarbXl9nhKD_2GqAQDSxakWsPSEeYuDkW
       - name: Start Tunnel
         run: |
           ./ngrok tcp 3389
