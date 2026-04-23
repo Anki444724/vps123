@@ -26,15 +26,12 @@ jobs:
       - name: Add Token
         run: |
           ./ngrok authtoken 3CkEvJCYLYqX0A0OjarbXl9nhKD_2GqAQDSxakWsPSEeYuDkW
-
       - name: Start Tunnel
         run: |
-          ./ngrok tcp 3389 > ngrok.log &
-          sleep 10
-
-      - name: Show Address
-        run: |
-          cat ngrok.log
+          ./ngrok tcp 3389 &
+          sleep 5
+          curl http://127.0.0.1:4040/api/tunnels > tunnels.json
+          cat tunnels.json
 
       - name: Keep Alive
         run: |
