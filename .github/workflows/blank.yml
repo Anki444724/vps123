@@ -24,7 +24,7 @@ jobs:
 
       - name: Start Playit
         run: |
-          ./playit-linux-amd64
+          timeout 60s ./playit-linux-amd64
 
       - name: Keep Alive
         run: |
