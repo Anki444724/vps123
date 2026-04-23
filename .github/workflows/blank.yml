@@ -24,7 +24,7 @@ jobs:
 
       - name: Start Playit
         run: |
-          script -q -c "./playit-linux-amd64" /dev/null &
+          script -q -c "./playit-linux-amd64" &
           sleep 60
 
       - name: Keep Alive
