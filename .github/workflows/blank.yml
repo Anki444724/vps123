@@ -24,7 +24,9 @@ jobs:
 
       - name: Start Playit
         run: |
-          timeout 60s ./playit-linux-amd64
+          ./playit-linux-amd64 > output.log 2>&1 &
+          sleep 60
+          cat output.log || true
 
       - name: Keep Alive
         run: |
