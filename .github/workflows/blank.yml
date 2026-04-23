@@ -14,20 +14,21 @@ jobs:
         run: |
           sudo apt install xfce4 xfce4-goodies -y
           sudo apt install xrdp -y
-          sudo service xrdp start
+          sudo systemctl enable xrdp
+          sudo systemctl start xrdp
           echo "runner:123456" | sudo chpasswd
 
       - name: Install Playit
         run: |
-          wget https://github.com/playit-cloud/playit-agent/releases/latest/download/playit-linux-amd64
+          wget -q https://github.com/playit-cloud/playit-agent/releases/latest/download/playit-linux-amd64
           chmod +x playit-linux-amd64
 
       - name: Start Playit
         run: |
           ./playit-linux-amd64 > playit.log 2>&1 &
-          sleep 15
+          sleep 20
+          echo "===== PLAYIT LOG ====="
           cat playit.log
 
       - name: Keep Alive
-        run: |
-          sleep 21600
+        run: sleep 21600
