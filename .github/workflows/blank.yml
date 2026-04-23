@@ -24,9 +24,4 @@ jobs:
 
       - name: Start Playit
         run: |
-          ./playit-linux-amd64 --code ANK-123 &
-          sleep 10
-
-      - name: Keep Alive
-        run: |
-          sleep 21600
+          ./playit-linux-amd64 --code ANKIT-8055
